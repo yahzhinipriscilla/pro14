@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <title>Eco fleet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>.ef-box{background:#fff;max-width:520px;margin:20px auto;padding:18px;border-radius:12px;border:2px solid #1b5e20;font-family:Arial,sans-serif;text-align:center}
+.ef-box input,.ef-box select{padding:9px;border:2px solid #1b5e20;border-radius:6px;margin:4px}
+.ef-btn{padding:9px 16px;border:none;border-radius:8px;background:#1b5e20;color:#fff;cursor:pointer;margin:4px}
+.ef-err{color:#c62828;font-size:.9rem;min-height:1.1em}
+.ef-opt{display:block;width:100%;text-align:left;padding:11px;margin:8px 0;border:2px solid #1b5e20;border-radius:8px;background:#f1f8e9;cursor:pointer;font-size:1rem}
+.ef-opt:hover{background:#dcedc8}
+.ef-opt.ok{background:#66bb6a;color:#fff}.ef-opt.bad{background:#ef5350;color:#fff}
+#nextBtn{display:none}
+  </style>
+</head>
+<html lang="en">
+    <body bgcolor="#aad563">
+
+       <table align="center"><tr><td align="center">
+        <img src="image/ecofleet.jpeg" alt="Eco fleet Logo" width="500" height="500">
+      </td></tr></table>
+    <h1 align="center"><strong>Electric Vehicle Fleet Management</strong></h1>
+    <h2 align="center"><b></b></h2><br>
+    <h3 align="center">Tracking, Maintaining, and Optimizing electric 
+      vehicles and their charging infrastructure</h3><br>
+    
+    <center><audio controls>
+  <source src="image/ecofleet audio_2.mp3" type="audio/mpeg">
+
+
+  Your browser does not support the audio tag.
+</audio></center>
+
+    <h2 align="center">What do we do?</h2><br>
+    <table align="center"><tr><td align="center">
+      <video width="640" height="360" controls>
+  <source src="image/movie.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video></td></tr></table>
+<h2 align="center">Locate Us</h2>
+<table align="center">
+  <tr>
+    <td align="center">
+<a href="https://maps.app.goo.gl/rtUda7qLUMR2dxw7A">
+  <img src="image/googlemaps.png" alt="Google maps location" width="400" height="400"></a>
+</td></tr></table>
+
+<table align="center"><tr><td align="center">
+<iframe 
+  width="560" 
+  height="400" 
+  src="https://form.svhrt.com/6aa04dcfa00a75349c4a8722" 
+  title="Website feedback" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen>
+</iframe></td></tr></table>
+<br>
+
+<h2><a href="signinform.html">Sign In</a></h2>
+<h2><a href="PRO3.html">Log In</a></h2>
+<h2> <a href="feedbackform.html">Feedback form</a> </h2>
+
+<div class="ef-box" id="quizBox">
+  <h2>EV Quiz</h2>
+  <div id="qCount"></div>
+  <h3 id="question"></h3>
+  <div id="options"></div>
+  <button class="ef-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+</div>
+
+<footer>
+  <p>Copyright 2026 by ecofleet Data. All Rights Reserved.</p>
+</footer>
+
+<script>
+var questions = [
+  { q: "What does EV stand for?", options: ["Electric Vehicle", "Energy Voltage", "Engine Valve"], answer: 0 },
+  { q: "Which unit measures battery capacity?", options: ["Litre", "kWh", "Newton"], answer: 1 },
+  { q: "Which vehicle has zero tailpipe emissions?", options: ["Diesel bus", "Petrol car", "Electric bus"], answer: 2 },
+  { q: "What is a charging station used for?", options: ["Refuelling petrol", "Recharging batteries", "Washing cars"], answer: 1 }
+];
+var current = 0, score = 0;
+function loadQuestion() {
+  var item = questions[current];
+  document.getElementById("qCount").textContent = "Question " + (current + 1) + " of " + questions.length;
+  document.getElementById("question").textContent = item.q;
+  var box = document.getElementById("options");
+  box.innerHTML = "";
+  item.options.forEach(function (text, i) {
+    var b = document.createElement("button");
+    b.className = "ef-opt";
+    b.textContent = text;
+    b.onclick = function () { checkAnswer(i, b); };
+    box.appendChild(b);
+  });
+  document.getElementById("nextBtn").style.display = "none";
+}
+function checkAnswer(i, btn) {
+  var correct = questions[current].answer;
+  var all = document.querySelectorAll(".ef-opt");
+  all.forEach(function (b) { b.disabled = true; });
+  if (i == correct) { btn.classList.add("ok"); score++; }
+  else { btn.classList.add("bad"); all[correct].classList.add("ok"); }
+  document.getElementById("nextBtn").style.display = "inline-block";
+}
+function nextQuestion() {
+  current++;
+  if (current < questions.length) { loadQuestion(); return; }
+  document.getElementById("quizBox").innerHTML =
+    "<h2>Quiz complete</h2><p>Your score: " + score + " / " + questions.length + "</p>" +
+    '<button class="ef-btn" onclick="location.reload()">Restart</button>';
+}
+loadQuestion();
+</script>
+</body>
+</html>
